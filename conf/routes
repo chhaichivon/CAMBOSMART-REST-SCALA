@@ -1,0 +1,264 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+GET           /api-docs                                                            controllers.Application.swagger
+GET           /api/v1/swagger.json                                                 controllers.ApiHelpController.getResources
+# TEST PAGE
+GET           /test                                                                controllers.Application.test
+GET           /profile                                                             controllers.Application.profile
+GET           /view/image/:id                                                      controllers.AdminManageMerchant.viewImage(id: String)
+
+#USER AUTHENTICATION
+GET           /api/v1/users/phones                                                 controllers.Authentication.listAllPhonesAndEmails
+POST          /api/v1/users/personal/signup                                        controllers.Authentication.personalSignUp
+POST          /api/v1/users/social/signup                                          controllers.Authentication.socialSignUp
+POST          /api/v1/users/social/phone                                           controllers.Authentication.socialPhoneUpdate
+POST          /api/v1/users/verification/:code                                     controllers.Authentication.accountVerification(code: String)
+POST          /api/v1/users/signin                                                 controllers.Authentication.signIn
+POST          /api/v1/users/signout                                                controllers.Authentication.signOut
+POST          /api/v1/users/forgetpassword                                         controllers.Authentication.forgetPassword
+POST          /api/v1/users/resetpassword                                          controllers.Authentication.resetPassword
+POST          /api/v1/users/resendcode                                             controllers.Authentication.sendCode
+
+#MEMBER MANAGEMENT
+POST          /api/v1/users/members                                                controllers.AdminManageMember.listFilterMembers(start: Int ?= 1, limit: Int ?= 10)
+POST          /api/v1/users/member/block                                           controllers.AdminManageMember.blockMember
+GET           /api/v1/users/member/:id                                             controllers.AdminManageMember.memberDetail(id: String)
+POST          /api/v1/users/member/:id/upload-image                                controllers.AdminManageMember.uploadImage(id: String)
+POST          /api/v1/users/member/update-info                                     controllers.AdminManageMember.updateMemberProfile()
+POST          /api/v1/users/member/update-pass                                     controllers.AdminManageMember.changePassword()
+
+#POST          /api/v1/users/members                               controllers.AdminManageMember.listFilterMember(start: Int ?= 1, limit: Int ?= 15)
+#GET         /api/v1/user/getallmember                             controllers.AdminManageMember.listMember(size: Int ?= 10,name:String ?=null, location:String ?=null, status: Int ?=1 )
+#PUT         /api/v1/user/member/:id                               controllers.AdminManageMember.updateMember(id:String)
+#DELETE      /api/v1/user/member/:id                               controllers.AdminManageMember.deleteMember(id:String)
+#POST          /api/v1/user/signup                                     controllers.UserController.signUp
+#GET           /api/v1/user/activate/:token                            controllers.UserController.activate(token:String)
+#POST          /api/v1/users/forgetpassword                             controllers.UserController.forgetPassword
+#POST          /api/v1/users/resetpassword/:token                       controllers.UserController.resetPassword(token:String)
+#DELETE        /api/v1/users/:id                                       controllers.UserController.deleteExistedUser(id: String)
+#PUT           /api/v1/users/:id                                       controllers.UserController.updateExistedProduct(id: String)
+#GET           /api/v1/users/:id                                       controllers.UserController.findUserById(id: String)
+#GET           /api/v1/users                                           controllers.UserController.listAllUsersWithPagingAndSorting(sort: Option[String], page: Int ?=1, size: Int ?=10)
+#MERCHANT MANAGEMENT
+#GET         /api/v1/users/merchant                  controllers.AdminManageMerchant.listAllMerchants(start: Int ?= 1, limit: Int ?=15)
+#GET         /api/v1/users/getmerchant/:id           controllers.AdminManageMerchant.getMerchant(id: String)
+#MEMBER MANAGE PRODUCTS
+#GET        /api/v1/member/listproducts               controllers.MemberManageProduct.ListAllProduct(start: Int ?=1, limit: Int ?=5)
+POST          /api/v1/users/merchants                                              controllers.AdminManageMerchant.listFilterMerchants(start: Int ?= 1, limit: Int ?= 10)
+PUT           /api/v1/users/merchants/:id                                          controllers.AdminManageMerchant.blockMerchant(id: String)
+#GET           /api/v1/users/merchant/:id                controllers.AdminManageMerchant.get(id: String)
+#MEMBER MANAGAMENT
+GET           /api/v1/users/members/renew/:productId                               controllers.MemberManageProduct.renewProduct(productId:String)
+GET           /api/v1/users/merchants/:id                                          controllers.AdminManageMerchant.viewMerchant(id: String)
+
+#CATEGORY
+POST          /api/v1/admin/category/add                                           controllers.ProductCategory.insertCategory()
+PUT           /api/v1/admin/category/update                                        controllers.ProductCategory.updateCategory()
+PUT           /api/v1/admin/category/:id                                           controllers.ProductCategory.deletedCategory(id: String)
+GET           /api/v1/admin/categories/detail/:id                                  controllers.ProductCategory.getCategory(id: String)
+GET           /api/v1/admin/categories/parents                                     controllers.ProductCategory.listParentCategories(page: Int ?= 1, limit: Int ?= 0)
+GET           /api/v1/admin/categories/children/:parentId                          controllers.ProductCategory.listSubCategories(parentId: String, page: Int ?= 1, limit: Int ?= 10)
+
+
+
+GET           /api/v1/category/listchildcategory/:id/:ancestor/:page/:limit        controllers.ProductCategory.listChildCategoriesByParentId(id: String, ancestor: Int, page: Int, limit: Int)
+GET           /api/v1/category/listallcategory                                     controllers.ProductCategory.listAllCategories()
+GET           /api/v1/category/listparentandchild                                  controllers.ProductCategory.listParentAndChild()
+GET           /api/v1/category/listparentcategories/:page/:limit                   controllers.ProductCategory.listParentCategoriesWithPagination(page: Int, limit: Int)
+GET           /api/v1/category/getcategorybyname/:name                             controllers.ProductCategory.getCategoryByName(name: String)
+GET           /api/v1/category/filtercategorybyname/:name                          controllers.ProductCategory.filterCategoriesByName(name)
+GET           /api/v1/category/getcategorybyid/:id                                 controllers.ProductCategory.getCategoryById(id)
+
+PUT           /api/v1/category/updatecategory                                      controllers.ProductCategory.updateCategory()
+GET           /api/v1/categories/:name                                             controllers.ProductCategory.getThirdCategories(name: String)
+
+#Naseat
+GET           /api/v1/category/checkcategory/:name                                 controllers.ProductCategory.checkCategory(name: String)
+POST          /api/v1/category/:categoryId                                         controllers.ProductCategory.countViewCategory(categoryId: String)
+GET           /api/v1/categories                                                   controllers.ProductCategory.listPopularCategory(limit: Int ?= 30)
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET           /assets/*file                                                        controllers.Assets.versioned(path="/public", file: Asset)
+#PRODUCTS
+#Chivon
+GET           /api/v1/products/category/:name                                      controllers.ProductController.listProductByCategoryName(name :String, start: Int ?=1, limit: Int ?=4)
+POST          /api/v1/products/category/list                                       controllers.ProductController.listProductMultiFilter(page: Int ?=1, limit: Int ?=6)
+GET           /api/v1/products/category/related/:categoryName/:productId           controllers.ProductController.listProductRelated(categoryName:String , productId:String , start: Int ?=1, limit: Int ?=18)
+GET           /api/v1/products/recently                                            controllers.ProductController.listProductRecently(start: Int ?=1, limit: Int ?=6)
+GET           /api/v1/products/username/:username                                  controllers.ProductController.listProductByUserName(username:String, start: Int ?=1, limit: Int ?=6)
+GET           /api/v1/member/:username/products  		                           controllers.StoreController.listUserWithStoreInfo(username:String)
+#End Chivon
+
+# Sopheak
+GET           /api/v1/products/relatedproducts/:cat_id/:pro_id                     controllers.ProductController.listRelatedProducts(cat_id: String, pro_id: String)
+GET           /api/v1/products/recentlyproducts                                    controllers.ProductController.listRecentlyProducts()
+
+POST          /api/v1/products/rating                                              controllers.StarRatingController.insertRating()
+GET           /api/v1/products/rating/:productId                                   controllers.StarRatingController.getStarRatingByProductIdAndIp(productId: String)
+GET           /api/v1/products/allratingstar/:productId                            controllers.StarRatingController.getTotalStarRatingByProductId(productId: String)
+GET           /api/v1/products/totalrating/:productId                              controllers.StarRatingController.getTotalStarRatingByProductId(productId: String)
+
+# End Sopheak
+
+# ADMIN MANAGE PRODUCTS
+POST          /api/v1/products/listproducts/:page/:limit                           controllers.ProductController.filterProducts(page: Int, limit: Int)
+POST          /api/v1/products/listproductsreport/:page/:limit                     controllers.ProductController.listProductsReport(page: Int, limit: Int)
+
+PUT           /api/v1/products/product/:id/:status                                 controllers.ProductController.updateProductStatusById(id: String, status: Int)
+DELETE        /api/v1/products/product/:id                                         controllers.ProductController.deleteProductStatusById(id)
+GET           /api/v1/products/product/:id                                         controllers.ProductController.getProductInfoById(id: String)
+PUT           /api/v1/products/product/:id                                         controllers.ProductController.updateStatusProduct(id: String)
+# Oudam
+POST          /api/v1/products                                                     controllers.ProductController.listProductByNameAndCategoryName(start: Int ?= 1, limit: Int ?= 6)
+POST          /api/v1/products/name                                                controllers.ProductController.searchProductByName()
+
+#ADMIN MANAGE ADVERTISER
+POST          /api/v1/admin/add/advertisers                                        controllers.AdminManageAdvertiser.addNewAdvertiser()
+POST          /api/v1/admin/get/advertisers                                        controllers.AdminManageAdvertiser.listFilterAdvertisers(start: Int ?= 1, limit: Int ?= 10)
+POST          /api/v1/admin/advertisers/:id                                        controllers.AdminManageAdvertiser.updateAdvertiser(id: String)
+POST          /api/v1/admin/advertising/:id                                        controllers.AdminManageAdvertiser.updateAdvertising(id: String)
+GET           /api/v1/admin/advertisers/:id                                        controllers.AdminManageAdvertiser.viewAdvertiser(id: String)
+DELETE        /api/v1/admin/advertisers/:id/:status                                controllers.AdminManageAdvertiser.deleteAdvertiser(id: String, status: Int)
+
+#ADMIN MANAGES PROMOTE USERS
+#GET           /api/v1/admin/merchants/expired/:page/:limit                         controllers.AdminManageUserPromote.listMerchantExpired(page: Int, limit: Int)
+#PUT           /api/v1/admin/merchants/expired                                      controllers.AdminManageUserPromote.updateExpiredMerchants()
+POST          /api/v1/users/member/requestpromoted                                 controllers.AdminManageUserPromote.insertPromotedUser()
+POST          /api/v1/users/member/listrequest/:page/:limit                        controllers.AdminManageUserPromote.ListMemberRequest(page: Int, limit: Int)
+POST          /api/v1/users/member/promote                                         controllers.AdminManageUserPromote.promoteMember()
+DELETE        /api/v1/users/member/request/:id                                     controllers.AdminManageUserPromote.deleteMemberRequest(id: String)
+GET           /api/v1/admin/merchants/expired/:page/:limit                         controllers.AdminManageUserPromote.listMerchantExpired(page: Int, limit: Int)
+PUT           /api/v1/admin/merchants/expired                                      controllers.AdminManageUserPromote.updateExpiredMerchants()
+GET           /api/v1/admin/users/expired/:page/:limit                             controllers.AdminManageUserPromote.listMemberRequestsExpired(page: Int, limit: Int)
+DELETE        /api/v1/admin/users/expired                                          controllers.AdminManageUserPromote.deleteMemberRequestsExpired()
+GET           /api/v1/admin/merchant/:userId                                       controllers.AdminManageUserPromote.checkMerchantExpired(userId: String)
+
+#ADMIN MANAGE PROMOTED USER PRODUCTS
+POST          /api/v1/admin/promote/users/:page/:limit                             controllers.AdminManageProductPromote.listUsers(page: Int, limit: Int)
+GET           /api/v1/admin/promote/products/:promoteId/:userId                    controllers.AdminManageProductPromote.listPromoteProductByUserId(promoteId: String, userId: String)
+PUT           /api/v1/admin/promote/products                                       controllers.AdminManageProductPromote.changeTypeProductsById()
+POST          /api/v1/admin/promote/products                                       controllers.AdminManageProductPromote.approveUserRequestById()
+DELETE        /api/v1/admin/promote/user/:id                                       controllers.AdminManageProductPromote.deleteUserRequest(id: String)
+PUT           /api/v1/admin/promote/product                                        controllers.AdminManageProductPromote.deleteProductRequestById()
+POST          /api/v1/member/promote/products                                      controllers.AdminManageProductPromote.insertPromotedProducts()
+PUT           /api/v1/admin/promote/expired                                        controllers.AdminManageProductPromote.updatePromotedProductExpired()
+GET           /api/v1/admin/promote/expired/:page/:limit                           controllers.AdminManageProductPromote.listPromotedProductsExpired(page: Int, limit: Int)
+
+#ADMIN MANAGE PROMOTED PRODUCTS PACKAGE
+POST          /api/v1/admin/package                                                controllers.AdminManageProductPromotePackage.savePromotePackage()
+GET           /api/v1/admin/packages/:page/:limit                                  controllers.AdminManageProductPromotePackage.listPromotePackages(page: Int, limit: Int, typePromote: String ?= "")
+GET           /api/v1/admin/package/:id                                            controllers.AdminManageProductPromotePackage.getPromotePackagesById(id: String)
+PUT           /api/v1/admin/package                                                controllers.AdminManageProductPromotePackage.updatePromotePackage()
+DELETE        /api/v1/admin/package/:id                                            controllers.AdminManageProductPromotePackage.deletePromotePackages(id: String)
+GET           /api/v1/packages                                                     controllers.AdminManageProductPromotePackage.listAllDurationPackages()
+
+#ADMIN MANAGE PROMOTE USER PACKAGE
+POST          /api/v1/admin/userpackage                                            controllers.AdminManageUserPromotePackage.saveUserPromotePackage()
+GET           /api/v1/admin/userpackages/:page/:limit                              controllers.AdminManageUserPromotePackage.listUserPromotePackages(page: Int, limit: Int)
+GET           /api/v1/admin/userpackage/:id                                        controllers.AdminManageUserPromotePackage.getUserPromotePackagesById(id: String)
+PUT           /api/v1/admin/userpackage                                            controllers.AdminManageUserPromotePackage.updatePromotePackage()
+DELETE        /api/v1/admin/userpackage/:id                                        controllers.AdminManageUserPromotePackage.deletePromotePackages(id: String)
+GET           /api/v1/userpackages                                                 controllers.AdminManageUserPromotePackage.listAllUserDurationPackages()
+
+#ADMIN MANAGE REPORTS
+GET           /api/v1/admin/report/bootproductincomes/:startDate/:endDate          controllers.AdminManageReport.listBootProductIncome(startDate: String, endDate: String)
+POST          /api/v1/admin/report/bootproductincome                               controllers.AdminManageReport.listBootProductIncomeByUserType()
+POST          /api/v1/admin/report/promotememberincome                             controllers.AdminManageReport.listGrandPromoteMemberIncome()
+POST          /api/v1/admin/report/promotememberincome/:page/:limit                controllers.AdminManageReport.listDetailPromoteMemberIncome(page: Int, limit: Int)
+POST          /api/v1/admin/report/advertiserincomes                               controllers.AdminManageReport.listGrandAdvertiserIncome()
+POST          /api/v1/admin/report/advertiserincomes/:start/:limit                 controllers.AdminManageReport.listDetailAdvertiserIncome(start: Int, limit: Int)
+GET           /api/v1/admin/report/categoryincomes/:startDate/:endDate             controllers.AdminManageReport.listCategoryIncome(startDate: String, endDate: String, name: String ?="")
+
+#ADMIN MANAGE MISTAKE
+
+POST          /api/v1/admin/mistake                                                controllers.AdminManageMistake.insertMistake()
+PUT           /api/v1/admin/mistake/:id                                            controllers.AdminManageMistake.updateMistake(id:String)
+DELETE        /api/v1/admin/mistake/:id                                            controllers.AdminManageMistake.deleteMistake(id: String)
+GET           /api/v1/admin/mistakes/:page/:limit                                  controllers.AdminManageMistake.listMistakes(page: Int , limit: Int)
+
+#MEMBER MANAGE PRODUCTS
+POST          /api/v1/member/product                                               controllers.MemberManageProduct.addNewProduct()
+POST          /api/v1/member/product/:id/upload-images                             controllers.MemberManageProduct.uploadImages(id: String)
+GET           /api/v1/members/:userId/products                                     controllers.MemberManageProduct.listProductByUserId(userId: String, start: Int ?= 1, limit: Int ?=10)
+POST          /api/v1/member/product/update-status                                 controllers.MemberManageProduct.updateProductStatus()
+POST          /api/v1/member/products/:productId/renew                             controllers.MemberManageProduct.renewProduct(productId:String)
+GET           /api/v1/member/products/:productId                                   controllers.MemberManageProduct.getProductByProductId(productId: String)
+POST          /api/v1/member/products/update                                       controllers.MemberManageProduct.updateProductById()
+POST          /api/v1/member/products/:productId/:productImage                     controllers.MemberManageProduct.updateImage(productId: String, productImage: String)
+POST          /api/v1/member/products/:productId/:productImage/remove              controllers.MemberManageProduct.removeImage(productId: String, productImage: String)
+PUT           /api/v1/member/products/:productId/delete                            controllers.MemberManageProduct.deleteProduct(productId: String)
+GET           /api/v1/member/products/list/:userid                                 controllers.MemberManageProduct.listPromotedProductByUserId(userid: String)
+GET           /api/v1/member/product/:id                                           controllers.MemberManageProduct.getPromotedProductById(id: String)
+
+#Product ..................................................
+POST          /api/v1/products/:productId                                          controllers.MemberManageProduct.countViewProduct(productId: String)
+
+#End product ..............................................
+
+#STORE
+GET           /api/v1/member/:userId/store                                         controllers.StoreController.getStoreByUserId(userId:String)
+PUT           /api/v1/member/store/updateMap                                       controllers.StoreController.updateStoreMap()
+PUT           /api/v1/member/store/update                                          controllers.StoreController.updateStore()
+POST          /api/v1/member/:userId/store/upload-banner                           controllers.StoreController.uploadStoreBanner(userId: String)
+
+#Admin manage advertisement
+POST          /api/v1/admin/advertisement/add                                      controllers.AdminManageAdvertisement.insertAdvertisement()
+POST          /api/v1/admin/advertisement/update                                   controllers.AdminManageAdvertisement.updateAdvertisement()
+POST          /api/v1/admin/advertisement/:id/delete                               controllers.AdminManageAdvertisement.deleteAdvertisement(id: String)
+GET           /api/v1/admin/advertisements/validate                                controllers.AdminManageAdvertisement.validatePageAndLocation(page: String ?= "")
+GET           /api/v1/admin/advertisements/:id                                     controllers.AdminManageAdvertisement.detailAdvertisement(id: String)
+GET           /api/v1/admin/advertisements/page/:page                              controllers.AdminManageAdvertisement.listAdvertisementByPageAndLocation(page: String, location: String ?= "")
+GET           /api/v1/admin/advertisement/schedule                                 controllers.AdminManageAdvertisement.listScheduleAdvertisement(page: String ?= "", location: String ?= "", start: Int ?= 1, limit: Int ?= 10)
+POST          /api/v1/admin/advertisement/renew-ads                                controllers.AdminManageAdvertisement.renewAdvertisement()
+
+#Display advertisement
+GET           /api/v1/advertisements                                               controllers.AdminManageAdvertisement.displayAdvertisements()
+
+#advertiser
+POST          /api/v1/admin/advertiser/add                                         controllers.AdminManageAdvertisement.insertAdvertiser()
+POST          /api/v1/admin/advertiser/update                                      controllers.AdminManageAdvertisement.updateAdvertiser()
+POST          /api/v1/admin/advertiser/:id/banner                                  controllers.AdminManageAdvertisement.advertiserUploadImage(id: String)
+POST          /api/v1/admin/advertiser/:id/:check/block                            controllers.AdminManageAdvertisement.blockAdvertiser(id: String, check: Int)
+POST          /api/v1/admin/advertiser                                             controllers.AdminManageAdvertisement.listAdvertiser()
+POST          /api/v1/admin/advertisers                                            controllers.AdminManageAdvertisement.listAdvertisers(start: Int ?= 1, limit: Int ?= 10)
+
+#Subscribe
+POST          /api/v1/store/subscirbe                                              controllers.SubscribeController.insertSubscribe()
+GET           /api/v1/store/subscirbe/:storeId/:userId                             controllers.SubscribeController.getSubscribeByStoreIdAndUserId(storeId: String, userId: String)
+DELETE        /api/v1/store/subscirbe/:id                                          controllers.SubscribeController.deleteSubscribe(id: String)
+GET           /api/v1/store/usersubscirbe/:storeId                                 controllers.SubscribeController.getUserHasSubscribeByStoreId(storeId: String)
+
+#Visitor website
+POST          /api/v1/visitor                                                      controllers.VisitorViewController.insertVisitorView()
+POST          /api/v1/visitors                                                     controllers.VisitorViewController.listVisitorViews()
+GET           /api/v1/visitors                                                     controllers.VisitorViewController.listVisitorViewByYear(year: Int ?= 0, month: Int ?= 0, day: Int ?= 0)
+
+#Notification
+POST          /api/v1/notification                                                 controllers.NotificationController.insertNotification()
+GET           /api/v1/notifications/:userId                                        controllers.NotificationController.getAllNotificationsByUserId(userId: String, limit: Int ?= 8)
+PUT           /api/v1/notification/view                                            controllers.NotificationController.updateAllViewNotification()
+PUT           /api/v1/notification/dirty                                           controllers.NotificationController.updateDirtyNotification()
+GET           /api/v1/notification/count/:userId                                   controllers.NotificationController.countNotificationUnView(userId: String)
+GET           /api/v1/notification/:id                                             controllers.NotificationController.getNotificationById(id: String)
+
+#CATEGORY ADVERTISEMENT
+POST          /api/v1/admin/category-advertisement                                 controllers.AdminManageCategoryAdvertisement.insertCategoryAdvertisement()
+PUT           /api/v1/admin/category-advertisement                                 controllers.AdminManageCategoryAdvertisement.updateCategoryAdvertisement()
+PUT           /api/v1/admin/category-advertisement/:id                             controllers.AdminManageCategoryAdvertisement.deleteCategoryAdvertisement(id: String)
+GET           /api/v1/admin/category-advertisement/:id                             controllers.AdminManageCategoryAdvertisement.viewCategoryAdvertisement(id: String)
+GET           /api/v1/admin/category-advertisements                                controllers.AdminManageCategoryAdvertisement.listCategoryAdvertisement()
+GET           /api/v1/admin/category-advertisements/schedule                       controllers.AdminManageCategoryAdvertisement.listScheduleCategoryAdvertisement(id: String ?= "")
+POST          /api/v1/admin/category-advertisement/advertiser                      controllers.AdminManageCategoryAdvertisement.insertAdvertiser()
+POST          /api/v1/admin/category-advertisers                                   controllers.AdminManageCategoryAdvertisement.listCategoryAdvertisers(page: Int ?= 1, limit: Int ?= 10)
+GET           /api/v1/admin/category-advertisers/:id/:startDate/:expireDate        controllers.AdminManageCategoryAdvertisement.getCategoryAdvertiser(id: String, startDate: Long, expireDate: Long)
+GET           /api/v1/category-advertisements/display                              controllers.AdminManageCategoryAdvertisement.displayCategoryAdvertisements()
+
+#PUT           /api/v1/admin/category-advertisers/:id                               controllers.AdminManageCategoryAdvertisement.blockAdvertiser(id: String)
+#PUT           /api/v1/admin/category-advertiser/renew                              controllers.AdminManageCategoryAdvertisement.renewAdvertisement()
+
+#DASHBOARD COUNT
+GET           /api/v1/admin/count/today-products                                   controllers.ProductController.countTodayProducts()
+GET           /api/v1/admin/count/member/normal                                    controllers.AdminManageMember.countAllNormalMembers()
+GET           /api/v1/admin/count/member/merchant                                  controllers.AdminManageMerchant.countAllMerchantMembers()
